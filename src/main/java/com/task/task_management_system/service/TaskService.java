@@ -21,19 +21,21 @@ public class TaskService {
 
     public CreateTaskResponse createTask(CreateTaskRequest req) {
         Task task = taskRepo.save(
-                new Task(
-                        req.getTitle(),
-                        req.getDescription(),
-                        LocalDateTime.now()
-
-                )
+                Task.builder()
+                        .title(req.getTitle())
+                        .description(req.getDescription())
+                        .createdAt(LocalDateTime.now())
+                        .updatedAt(LocalDateTime.now())
+                        .build()
         );
 
         return CreateTaskResponse.builder()
                 .id(task.getId())
                 .title(task.getTitle())
                 .description(task.getDescription())
-                .status(TaskStatus.TODO.name())
+                .status(task.getStatus().name())
+                .createdAt(task.getCreatedAt())
+                .updatedAt(task.getUpdatedAt())
                 .build();
     }
 

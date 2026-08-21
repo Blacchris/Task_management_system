@@ -23,14 +23,10 @@ public class Task {
     private String description;
 
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     private TaskStatus status = TaskStatus.TODO;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Task(String title, String description, LocalDateTime createdAt) {
-        this.title = title;
-        this.description = description;
-        this.createdAt = createdAt;
-    }
 }
