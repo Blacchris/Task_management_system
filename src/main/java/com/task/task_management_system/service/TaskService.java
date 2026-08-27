@@ -24,8 +24,6 @@ public class TaskService {
                 Task.builder()
                         .title(req.getTitle())
                         .description(req.getDescription())
-                        .createdAt(LocalDateTime.now())
-                        .updatedAt(LocalDateTime.now())
                         .build()
         );
 
