@@ -20,20 +20,22 @@ public class TaskService {
     private final TaskRepository taskRepo;
 
     public CreateTaskResponse createTask(CreateTaskRequest req) {
-        Task task = taskRepo.save(
-                Task.builder()
-                        .title(req.getTitle())
-                        .description(req.getDescription())
-                        .build()
-        );
+
+        Task task = Task.builder()
+                .title(req.getTitle().trim())
+                .description(req.getDescription().trim())
+                .status(TaskStatus.TODO)
+                .build();
+
+        Task savedTask = taskRepo.save(task);
 
         return CreateTaskResponse.builder()
-                .id(task.getId())
-                .title(task.getTitle())
-                .description(task.getDescription())
-                .status(task.getStatus().name())
-                .createdAt(task.getCreatedAt())
-                .updatedAt(task.getUpdatedAt())
+                .id(savedTask.getId())
+                .title(savedTask.getTitle())
+                .description(savedTask.getDescription())
+                .status(savedTask.getStatus().name())
+                .createdAt(savedTask.getCreatedAt())
+                .updatedAt(savedTask.getUpdatedAt())
                 .build();
     }
 
